@@ -14,14 +14,11 @@ struct Node
     }
 };
 
-fun(vector<int> &list)
-{
-    
-}
+
 int main()
 {
     vector<int> list={1,2,5,6,8};
-    fun(list);
+    // fun(list);
     Node* head=nullptr;
 
     Node* temp=head;

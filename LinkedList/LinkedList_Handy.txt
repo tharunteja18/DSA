@@ -1,0 +1,265 @@
+LinkedList:     It is a linear Data structure.
+		Instead of storing the elements in contiguous memory like a array, 
+		it stores them in nodes scattered in memory.
+		
+
+		Each node contains 	
+			data (value) and pointer to next node
+
+Why to use LinkedList:
+		we can perform the operations dynamically i.e
+			- we don't need to know the size in advance.
+			- we can insert/delete the nodes in list without shifting the elements.
+			- Memory is allocated as needed at runtime using the new keyword(heap)
+		
+
+Type of LinkedList:
+		- Singly LinkedList -> Each node points to next node
+		- Doubly LinkedList -> Each node points to both next and previous node
+		- Circular LinkedList -> Last node's next is points back to head.
+
+Memory Allocation:
+		- Nodes are created dynamically on the Heap using new
+		- Head is the pointer that stores the address of first node
+		- Always ensure to delete nodes when not needed.(to avoid memory leaks)
+
+Basic Operations:
+		- Insertion 
+			- At head
+			- At Tail
+			- At a given position
+			- by value
+		- Deletion
+			- from Head
+			- from Tail
+			- at a given position
+			- by value
+
+Advantages:	
+		- Dynamic Size
+		- Effective Insertion or Deletion
+
+Disadvantages: 
+		- Usage of memory is more i.e more memory per element
+		- No direct/ random access
+		- Slower traversal compare to arrays due to cache locality
+
+
+
+Structure of Node
+================
+
+
+struct Node
+{
+
+int data;
+Node* next;
+
+Node(int value, Node* next)
+{
+this->data=value;
+this->next=next;
+
+}
+Node(int value)
+{
+this->data=value;
+this->next=nullPtr;
+}
+};
+
+
+
+
+- Why Node* newNode = new Node(2); why not Node newNode = new Node(2);
+- So whenever the node is created, the node will be created on the heap memory. 
+	In order to store the address of the node which is created on the heap memory, 
+	we should have some data type, right? Normally the address can't be stored in the
+	 normal data types like int, float, character. So a special data type is required. 
+	 That is the purpose why we are using the pointers.
+	  In the pointers, we can store the address of the object which is created on heap.
+
+new Node(2)=> dynamically creates the node on heap
+new => Returns the memory address of that heap-allocated Node
+
+since it is create on the heap(using new)
+It stays in memory until we manually delete it.
+The list can keep nodes alive and linked together.
+
+
+
+// Deleting the Head
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+	int data;
+	Node* next;
+
+	Node(int val)
+	{
+		data=val;
+		next=nullptr;
+	}
+};
+
+Node* convertArr2LL(vector<int> arr)
+{
+	if(arr.size()==0) return NULL;
+
+	Node* head=new Node(arr[0]);
+
+	Node* current=head;
+
+	for(int i=1;i<arr.size();i++)
+	{
+		Node* newNode =new Node(arr[i]);
+		current->next=newNode;
+		current = current->next;
+	}
+
+	return head;
+
+}
+
+Node* deleteTheHead(Node* head)
+{
+	if(head==null) return head;
+
+	Node* temp=head;
+	head = head->next;
+	delete temp;
+
+	return head;
+}
+
+void print(Node* head)
+{
+	if(head==NULL)
+	{
+		cout << "No element in the list to print";
+	}
+
+	while(head!=NULL)
+	{
+		cout << head->next << " ";
+		head = head->next;
+	}
+}
+
+int main()
+{
+	vector<int> arr={12,5,8,6,9};
+	Node* head = convertArr2LL(arr);
+	head = deleteTheHead(head);
+	print(head);
+
+}
+
+// Delete at Tail
+we can do it in two ways using temp->next->next or using the prev variable 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* next;
+
+    Node(int val)
+    {
+        data=val;
+        next=nullptr;
+    }
+};
+
+Node* convertArr2LL(vector<int> &arr)
+{
+    if(arr.empty()) return nullptr;
+    Node* head = new Node(arr[0]);
+    Node* current=head;
+
+    for(int i=1;i<arr.size();i++)
+    {
+        Node* nodeAdd=new Node(arr[i]);
+        current->next=nodeAdd;
+        current = current->next;
+    }
+
+    return head;
+}
+
+void printLL(Node* head)
+{
+    Node* temp=head;
+    if(temp==NULL)
+    {
+        cout << "There is no LL";
+    }
+    while(temp!=NULL)
+    {
+        cout << temp->data << " ";
+        temp= temp->next;
+    }
+}
+
+Node* removeTail(Node* head)
+{
+    if(head==NULL)
+    {
+        cout << "Nothing" << " " << endl;
+        return head;                
+
+    }
+    else if(head->next == NULL)
+    {
+        cout << "only one element "<< endl;
+        delete head;   
+        return NULL;
+    }
+
+    Node* temp=head->next;
+    Node* prev;
+    while(temp->next!=NULL)
+    {
+        prev=temp;
+        temp=temp->next;
+    }
+
+    prev->next=NULL;
+    delete temp;
+    return head;
+}
+int main()
+{
+    vector<int> arr={1};
+    Node* head = convertArr2LL(arr);
+    Node* LLAfterRemoveTail= removeTail(head);
+    printLL(LLAfterRemoveTail);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

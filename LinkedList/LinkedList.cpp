@@ -40,7 +40,7 @@ Node* convertArray2LL(vector<int> vec)
 
 int main()
 {
-    vector<int> vec={2,5,8,3,9};
+    vector<int> vec={2,5,8,3,91};
     Node* head = convertArray2LL(vec);
     // dont tamper the head
     // while(head->next!=nullptr)
